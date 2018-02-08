@@ -1,0 +1,13 @@
+Each player chooses and places ships on his/her board using a point value system.
+
+Each battleship has armor, hitpoints, movement, and a number of attacks with unique blast radii, damage, and armor piercing capabilities.
+
+
+
+Cruisers - Small and fast, low hp, low armor, many attacks.
+
+Battleships - Good hp, good armor, powerful attacks with armor piercing qualities, medium movement.
+
+Carriers - Good hp, low armor, many attacks that hit large areas, once a hit is made the target is lit up for many turns.
+
+Submarine - Low hp, no armor, limited attacks that reveal enemy units. Cannot be hit by carriers.
