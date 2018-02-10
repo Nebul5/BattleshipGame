@@ -1,0 +1,8 @@
+2/7/2018 - Set up Trello, Slack and Git repo:
+	https://trello.com/b/9reUzcCT/battleship
+	https://github.com/Nebul5/BattleshipGame.git
+
+~one hour
+
+2/7/2018 - Implemented Ship and attack classes
+~two hours
