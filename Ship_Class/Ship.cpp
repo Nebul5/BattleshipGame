@@ -35,3 +35,20 @@ int Ship::damage(attack a) {
 std::string Ship::report() {
 	return "hp: " +std::to_string(hp)+" tracked for " +std::to_string(tracked) +" turns.";
 }
+
+
+bool Ship::placement() {
+	return true;
+};
+bool Ship::move() {
+	return true;
+};
+
+bool Ship::isDestroyed() {
+	if (hp < 0) return true;
+	return false;
+};
+bool Ship::isTracked() {
+	if (tracked == 1) return true;
+	return false;
+};

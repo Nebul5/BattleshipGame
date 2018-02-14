@@ -1,3 +1,6 @@
+#define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
+#include "catch.hpp"
+
 // ************************* //
 //         Main.cpp          //
 //  for testing Ship class   //
@@ -6,28 +9,60 @@
 
 #include <iostream>
 #include <string>
-#include "Ship.h"
 
+#include "Battleship.h"
+#include "Sub.h"
+#include "Destroyer.h"
+#include "Cruiser.h"
+#include "Carrier.h"
+
+#include "catch.hpp"
 using std::cout;
 using std::endl;
 
-int main(){
-	
-	bool keep_shooting = true;
+TEST_CASE("Testing BattleShip Creation", "[ships]") {
+	Battleship ship;
+	REQUIRE(ship.getHP() == 10);
+	REQUIRE(ship.getArmor() == 20);
+	REQUIRE(ship.getLength() == 5);
+	REQUIRE(ship.getSpeed() == 3);
+	REQUIRE(ship.getStealth() == 0);
+	REQUIRE(ship.isTracked() == false);
+}
+TEST_CASE("Testing Sub Creation", "[ships]") {
+	Sub ship;
+	REQUIRE(ship.getHP() == 10);
+	REQUIRE(ship.getArmor() == 20);
+	REQUIRE(ship.getLength() == 5);
+	REQUIRE(ship.getSpeed() == 3);
+	REQUIRE(ship.getStealth() == 0);
+	REQUIRE(ship.isTracked() == false);
+}
+TEST_CASE("Testing Carrier Creation", "[ships]") {
+	Carrier ship;
+	REQUIRE(ship.getHP() == 10);
+	REQUIRE(ship.getArmor() == 20);
+	REQUIRE(ship.getLength() == 5);
+	REQUIRE(ship.getSpeed() == 3);
+	REQUIRE(ship.getStealth() == 0);
+	REQUIRE(ship.isTracked() == false);
+}
+TEST_CASE("Testing Destroyer Creation", "[ships]") {
+	Destroyer ship;
+	REQUIRE(ship.getHP() == 10);
+	REQUIRE(ship.getArmor() == 20);
+	REQUIRE(ship.getLength() == 5);
+	REQUIRE(ship.getSpeed() == 3);
+	REQUIRE(ship.getStealth() == 0);
+	REQUIRE(ship.isTracked() == false);
+}
 
-	// Make an attack and a new ship
-	attack barrage(5, 2, 3);
-	Ship boaty(10, 4, 4, 4, false, [&keep_shooting]() { keep_shooting = false; }, barrage);
-
-	// Keep shooting until it dies
-	while (keep_shooting) {
-		cout << "Boaty has: " << boaty.report() << endl;
-		boaty.damage(barrage);
-	}
-
-	// We got out of the loop if we're here.
-	cout << "done" << endl;
-	std::cin.get();
-
-    return 0;
+TEST_CASE("Testing Cruiser Creation", "[ships]") {
+	Cruiser ship;
+	REQUIRE(ship.getHP() == 10);
+	REQUIRE(ship.getArmor() == 20);
+	REQUIRE(ship.getLength() == 5);
+	REQUIRE(ship.getSpeed() == 3);
+	REQUIRE(ship.getStealth() == 0);
+	REQUIRE(ship.isTracked() == false);
 }

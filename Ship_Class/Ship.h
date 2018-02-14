@@ -21,28 +21,67 @@ struct attack {
 
 // Ship class
 class Ship{
-    private:
-        int hp, armor, length, speed, tracked;
-		bool stealth;
-		attack Attack;
-		std::function<void()> destroyed;
 
+    private:
+        int hp, armor, length, speed, tracked, place;
+		bool stealth;
+
+		std::function<void()> destroyed;
     public:
 		Ship() = delete;
-
 		// Ship class ctrs
-		Ship(int h, int a, int l, int s, bool st, std::function<void()> onDestroy, const attack & at) : 
-			hp(h), armor(a), length(l), stealth(st), destroyed(onDestroy), Attack(at) {
+		Ship(int h, int a, int l, int s, bool st) :
+			hp(h), armor(a), length(l),speed(s),stealth(st){
 			tracked = 0;
 		};
 
-		Ship(const Ship & s) :
-			hp(s.hp), armor(s.armor), length(s.length), stealth(s.stealth), destroyed(s.destroyed), Attack(s.Attack) {
-			tracked = 0;
+
+
+
+
+
+
+
+
+
+		void setHP(const int &h) {
+			hp = h;
+		};
+		void setArmor(const int &h) {
+			hp = h;
+		};
+		void setLength(const int &h) {
+			hp = h;
+		};
+		void setSpeed(const int &h) {
+			hp = h;
+		};
+		void setTracked(const int &h) {
+			hp = h;
+		};
+		int getHP(){
+			return hp;
+		};
+		int getArmor() {
+			return armor;
+		};
+		int getLength() {
+			return length;
+		};
+		int getSpeed() {
+			return speed;
+		};
+		int getStealth() {
+			return stealth;
 		};
 
-		// damage member function, for doing damage to the ship
+		bool placement();
+		bool move();
+
+		bool isDestroyed();
+		bool isTracked();
 		int damage(attack a);
+		// damage member function, for doing damage to the ship
 
 		std::string report();
 };
