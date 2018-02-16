@@ -77,3 +77,20 @@ void Ship::Rotate() {
 bool Ship::isVisible() {
 	return (tracked > 0 && !stealth);
 }
+
+bool Ship::placement() {
+	return true;
+};
+
+bool Ship::move() {
+	return true;
+};
+
+bool Ship::isDestroyed() {
+	if (hp < 0) return true;
+	return false;
+};
+bool Ship::isTracked() {
+	if (tracked == 1) return true;
+	return false;
+};

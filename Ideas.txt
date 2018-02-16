@@ -11,3 +11,11 @@ Battleships - Good hp, good armor, powerful attacks with armor piercing qualitie
 Carriers - Good hp, low armor, many attacks that hit large areas, once a hit is made the target is lit up for many turns.
 
 Submarine - Low hp, no armor, limited attacks that reveal enemy units. Cannot be hit by carriers.
+
+Timer System
+
+History of attacks
+
+Custom game options
+
+Full GUI

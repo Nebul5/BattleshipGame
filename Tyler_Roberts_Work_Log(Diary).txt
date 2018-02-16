@@ -1,0 +1,9 @@
+Feb 5, 2018 - during class and a bit after about = 40min
+	Brainstormed User Stories and narrowed them down.
+
+Feb 12, 2018 - 7:35am - 8:25am = 50min
+	Rough Interface Design for Boat's, State, Logger, and Timer classes also custom settings.
+
+Feb 13, 2018 - 3:00pm - 5:15pm = 2hr 15min
+	Reworked class structure and test for testing them.	
+	
