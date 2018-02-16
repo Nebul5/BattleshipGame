@@ -1,6 +1,6 @@
 #include "Ship.h"
 
-int Ship::damage(attack a) {
+int Ship::Damage(attack a) {
 	// check for the track effect
 	if (a.track > tracked) {
 		if (!stealth) {
@@ -32,6 +32,48 @@ int Ship::damage(attack a) {
 	return a.damage;
 }
 
-std::string Ship::report() {
-	return "hp: " +std::to_string(hp)+" tracked for " +std::to_string(tracked) +" turns.";
+// Report status of ship in string form.
+std::string Ship::Report() {
+	return name + ": (" +std::to_string(x_loc) +", " +std::to_string(y_loc) +") hp: " +std::to_string(hp)+" tracked for " +std::to_string(tracked) +" turns.";
+}
+
+// Orientation, of Ship class returns a string describing the Ship's orientation.
+std::string Ship::Orientation() {
+	if (horiz_vert) {
+		return "horizontal";
+	}
+	else {
+		return "vertical";
+	}
+}
+
+// GetName
+std::string Ship::GetName() {
+	return name;
+}
+
+// GetX
+int Ship::GetX() {
+	return x_loc;
+}
+
+// GetY
+int Ship::GetY() {
+	return y_loc;
+}
+
+// Move
+void Ship::Move(int x_comp, int y_comp) {
+	x_loc += x_comp;
+	y_loc += y_comp;
+}
+
+// Rotate
+void Ship::Rotate() {
+	horiz_vert = !horiz_vert;
+}
+
+// isVisible
+bool Ship::isVisible() {
+	return (tracked > 0 && !stealth);
 }
