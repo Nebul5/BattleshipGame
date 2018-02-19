@@ -74,7 +74,6 @@ int main(){
 
 	// Add a battleship
 	cout << "Add a battleship" << endl;
-	//board.push_back(Ship("battleship", 10, 4, 4, 5, false, []() {cout << "Battleship destroyed!" << endl; }, barrage));
 	board.push_back(Ship("battleship", 10, 4, 4, 5, false, []() {cout << "Battleship destroyed!" << endl; }, barrage));
 	draw_board(board);
 	std::cin.get();

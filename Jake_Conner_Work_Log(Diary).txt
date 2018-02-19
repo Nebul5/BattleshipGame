@@ -6,3 +6,9 @@
 
 2/7/2018 - Implemented Ship and attack classes
 ~two hours
+
+2/15/18 - Worked on simple mock-up
+	- Added draw_board header and imp that takes
+	information from a vector of Ships and displays it
+	somehow. (Just ASCII right now.)
+6:38pm to 10:53

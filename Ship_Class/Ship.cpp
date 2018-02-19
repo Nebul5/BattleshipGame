@@ -46,6 +46,7 @@ std::string Ship::Orientation() {
 		return "vertical";
 	}
 }
+<<<<<<< HEAD
 
 // GetName
 std::string Ship::GetName() {

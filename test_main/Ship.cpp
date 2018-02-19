@@ -76,4 +76,5 @@ void Ship::Rotate() {
 // isVisible
 bool Ship::isVisible() {
 	return (tracked > 0);
+
 }
