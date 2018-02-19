@@ -7,3 +7,12 @@ Feb 12, 2018 - 7:35am - 8:25am = 50min
 Feb 13, 2018 - 3:00pm - 5:15pm = 2hr 15min
 	Reworked class structure and test for testing them.	
 	
+Feb 16, 2018 - 4:30pm - 5:15pm = 45min
+	Group meeting and pair programming fixed a merge and cleaned up are interface by refactoring.
+	
+Fed 18, 2018 - 1:00pm - 2:00pm = 1hr
+	Qt framework installed and working with existing code.
+
+Feb 19, 2018 - 3:00am - 5:00am = 2hr 
+	Tinkering with qt and understanding there socket system and made a home screen.
+	

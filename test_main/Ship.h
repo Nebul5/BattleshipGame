@@ -24,7 +24,6 @@ struct attack {
 
 // Ship class
 class Ship{
-
     private:
 		std::string name;
         int hp, armor, length, speed, tracked;
@@ -34,20 +33,18 @@ class Ship{
 		std::function<void()> destroyed;
 		bool horiz_vert; // true means horizontal
 
-
-		std::function<void()> destroyed;
     public:
 		Ship() = delete;
+
 		// Ship class ctrs
 		Ship(std::string Name, int Hitpoints, int Armor, int Length, int Speed, bool Stealthy, std::function<void()> onDestroy, const attack & Attack) : 
 			name(Name), hp(Hitpoints), armor(Armor), length(Length), stealth(Stealthy), destroyed(onDestroy), Attack(Attack) {
-
 			tracked = 0;
 			horiz_vert = true;
 			x_loc = 0 + length / 2;
 			y_loc = 0;
 		};
-		
+
 		Ship(const Ship & s) :
 			name(s.name), hp(s.hp), armor(s.armor), length(s.length), speed(s.speed), tracked(s.tracked), 
 			x_loc(s.x_loc), y_loc(s.y_loc), stealth(s.stealth), Attack(s.Attack), destroyed(s.destroyed),
@@ -82,6 +79,5 @@ class Ship{
 		// isVisible
 		bool isVisible();
 };
-
 
 #endif

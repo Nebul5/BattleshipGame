@@ -20,6 +20,7 @@
 using std::cout;
 using std::endl;
 
+
 TEST_CASE("Testing BattleShip Creation", "[ships]") {
 	Battleship ship;
 	REQUIRE(ship.getHP() == 10);
