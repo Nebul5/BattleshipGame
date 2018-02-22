@@ -16,3 +16,10 @@ Fed 18, 2018 - 1:00pm - 2:00pm = 1hr
 Feb 19, 2018 - 3:00am - 5:00am = 2hr 
 	Tinkering with qt and understanding there socket system and made a home screen.
 	
+Feb 20, 2018 - 11:40am - 1:30pm = 1hr 50min
+	Font end looks somewhat roughly implemeted but not linked with backend code at all.
+	
+Feb 20, 2018 - 4:00pm - 7:00pm = 3hr
+	Start Menu fully implemted, Ship selection fully implimited forplayer one and two.
+	
+
