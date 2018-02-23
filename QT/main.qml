@@ -6,13 +6,19 @@ import QtQuick.Controls.Universal 2.0
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 
+
 Window {
+
     id: mainDisplay
     visible: true
     width: 640
     height: 480
     color: "#000000"
     title: qsTr("Battleship")
+    property variant playerOneShips: []
+    property variant playerTwoShips: []
+    property int playerOneShipsLength: 0
+    property int playerTwoShipsLength: 0
 
     Item {
         id: startMenu
@@ -23,7 +29,6 @@ Window {
         visible: true
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
-
         Column {
             id: column
             x: 270
@@ -394,6 +399,15 @@ Window {
             if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
                 battleshipSpinBox.decrease();
             }
+            else{
+                if(stateName.text == "Ship Selection Player 1"){
+                    playerOneShips.push(4);
+                }
+                else
+                {
+                    playerTwoShips.push(4);
+                }
+            }
         }
     }
     Connections {
@@ -401,6 +415,15 @@ Window {
         onValueModified: {
             if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
                 destroyerSpinBox.decrease();
+            }
+            else{
+                if(stateName.text == "Ship Selection Player 1"){
+                    playerOneShips.push(3);
+                }
+                else
+                {
+                    playerTwoShips.push(3);
+                }
             }
         }
     }
@@ -410,6 +433,16 @@ Window {
             if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
                 crusierSpinBox.decrease();
             }
+            else
+            {
+                if(stateName.text == "Ship Selection Player 1"){
+                    playerOneShips.push(2);
+                }
+                else
+                {
+                    playerTwoShips.push(2);
+                }
+            }
         }
     }
     Connections {
@@ -417,6 +450,15 @@ Window {
         onValueModified: {
             if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
                 subSpinBox.decrease();
+            }
+            else{
+                if(stateName.text == "Ship Selection Player 1"){
+                    playerOneShips.push(3);
+                }
+                else
+                {
+                    playerTwoShips.push(3);
+                }
             }
         }
     }
@@ -426,19 +468,30 @@ Window {
             if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
                 carrierSpinBox.decrease();
             }
+            else
+            {
+                if(stateName.text == "Ship Selection Player 1"){
+                    playerOneShips.push(5);
+                }
+                else
+                {
+                    playerTwoShips.push(5);
+                }
+            }
         }
+
     }
     Connections {
         target: finishedButton
         onClicked: {
             if(stateName.text == "Ship Selection Player 2"){
-                //pass info call c++
+                playerTwoShipsLength = playerTwoShips.length
                 shipSelectionPlayer1.visible = false;
                 shipPlacmentPlayer1.visible = true;
             }
             else
             {
-                //pass info call c++
+                playerOneShipsLength = playerOneShips.length
                 stateName.text = "Ship Selection Player 2";
                 subSpinBox.value = 0;
                 carrierSpinBox.value = 0;
@@ -459,723 +512,47 @@ Window {
         anchors.verticalCenter: parent.verticalCenter
         visible: false
 
-        Grid {
-            id: grid
-            x: 216
-            y: 40
-            width: 210
-            height: 207
-            spacing: 1
-            rows: 10
-            columns: 10
-
-            Button {
-                id: button
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button1
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button2
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button3
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button4
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button5
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button6
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button7
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button8
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button9
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button10
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button11
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button12
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button13
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button14
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button15
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button16
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button17
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button18
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button19
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button20
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button21
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button22
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button23
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button24
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button25
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button26
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button27
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button28
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button29
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button30
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button31
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button32
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button33
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button34
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button35
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button36
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button37
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button38
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button39
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button40
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button41
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button42
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button43
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button44
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button45
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button46
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button47
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button48
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button49
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button50
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button51
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button52
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button53
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button54
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button55
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button56
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button57
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button58
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button59
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button60
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button61
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button62
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button63
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button64
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button65
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button66
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button67
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button68
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button69
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button70
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button71
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button72
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button73
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button74
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button75
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button76
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button77
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button78
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button79
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button80
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button81
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button82
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button83
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button84
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button85
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button86
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button87
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button88
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button89
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button90
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button91
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button92
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button93
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button94
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button95
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button96
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button97
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button98
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button99
-                width: 20
-                height: 20
-                text: qsTr("")
+        Rectangle {
+            id: boundsRec
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.TopRight
+            width: 300; height: 300
+            color: "#505050"
+            property int tablesize: 10
+
+            Grid {
+                columns: parent.tablesize
+                rows: parent.tablesize
+                spacing: 0
+                z: 0
+
+                Repeater {
+                    model: parent.columns * parent.rows
+
+                    Rectangle {
+                        id: dropRectangle
+                        color: "white"
+                        width: 30
+                        height: 30
+                        border.color: "#dddddd"
+                    }
+                }
+                Repeater {
+                    model: playerOneShipsLength
+
+                    Ship {
+                        shipWidth: 30*playerOneShips.pop()
+                        shipHeight: 30
+                    }
+                }
             }
         }
 
-        Column {
-            id: column3
-            x: 10
-            y: 40
-            width: 200
-            height: 400
+        Button {
+            id: button
+            x: 270
+            y: 403
+            text: qsTr("Done")
         }
     }
 
@@ -1187,1426 +564,74 @@ Window {
         anchors.verticalCenter: parent.verticalCenter
         visible: false
 
-        Grid {
-            id: playerGrid
-            x: 26
-            y: 134
-            width: 210
-            height: 207
-            columns: 10
-            Button {
-                id: button100
-                width: 20
-                height: 20
-                text: qsTr("")
+        Rectangle {
+            id: boundsRecPlayer
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            width: 300; height: 300
+            color: "#505050"
+            anchors.verticalCenterOffset: 0
+            anchors.horizontalCenterOffset: -170
+            property int tablesize: 10
+
+            Grid {
+                columns: parent.tablesize
+                rows: parent.tablesize
+                spacing: 0
+                z: 0
+
+                Repeater {
+                    model: parent.columns * parent.rows
+
+                    Rectangle {
+                        id: dropRectanglePlayer
+                        color: "white"
+                        width: 30
+                        height: 30
+                        border.color: "#dddddd"
+                    }
+                }
+            }
+
+            Ship {
+                shipWidth: 30*2 // ship size
+                shipHeight: 30
             }
-
-            Button {
-                id: button101
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button102
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button103
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button104
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button105
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button106
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button107
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button108
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button109
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button110
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button111
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button112
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button113
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button114
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button115
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button116
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button117
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button118
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button119
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button120
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button121
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button122
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button123
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button124
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button125
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button126
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button127
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button128
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button129
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button130
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button131
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button132
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button133
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button134
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button135
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button136
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button137
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button138
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button139
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button140
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button141
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button142
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button143
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button144
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button145
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button146
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button147
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button148
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button149
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button150
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button151
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button152
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button153
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button154
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button155
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button156
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button157
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button158
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button159
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button160
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button161
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button162
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button163
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button164
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button165
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button166
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button167
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button168
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button169
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button170
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button171
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button172
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button173
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button174
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button175
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button176
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button177
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button178
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button179
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button180
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button181
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button182
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button183
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button184
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button185
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button186
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button187
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button188
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button189
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button190
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button191
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button192
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button193
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button194
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button195
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button196
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button197
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button198
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button199
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-            spacing: 1
-            rows: 10
         }
 
-        Grid {
-            id: enemyGrid
-            x: 403
-            y: 134
-            width: 210
-            height: 207
-            columns: 10
-            Button {
-                id: button200
-                width: 20
-                height: 20
-                text: qsTr("")
+        Rectangle {
+            id: boundsRecEnemy
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.verticalCenter
+            width: 300; height: 300
+            color: "#505050"
+            anchors.verticalCenterOffset: 0
+            anchors.horizontalCenterOffset: 170
+            property int tablesize: 10
+
+            Grid {
+                columns: parent.tablesize
+                rows: parent.tablesize
+                spacing: 0
+                z: 0
+
+                Repeater {
+                    model: parent.columns * parent.rows
+
+                    Rectangle {
+                        id: dropRectangleEnemy
+                        color: "white"
+                        width: 30
+                        height: 30
+                        border.color: "#dddddd"
+                    }
+                }
+            }
+
+            Ship {
+                shipWidth: 30*2 // ship size
+                shipHeight: 30
             }
-
-            Button {
-                id: button201
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button202
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button203
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button204
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button205
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button206
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button207
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button208
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button209
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button210
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button211
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button212
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button213
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button214
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button215
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button216
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button217
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button218
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button219
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button220
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button221
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button222
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button223
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button224
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button225
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button226
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button227
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button228
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button229
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button230
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button231
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button232
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button233
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button234
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button235
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button236
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button237
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button238
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button239
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button240
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button241
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button242
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button243
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button244
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button245
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button246
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button247
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button248
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button249
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button250
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button251
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button252
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button253
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button254
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button255
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button256
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button257
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button258
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button259
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button260
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button261
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button262
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button263
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button264
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button265
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button266
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button267
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button268
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button269
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button270
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button271
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button272
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button273
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button274
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button275
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button276
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button277
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button278
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button279
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button280
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button281
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button282
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button283
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button284
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button285
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button286
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button287
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button288
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button289
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button290
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button291
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button292
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button293
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button294
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button295
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button296
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button297
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button298
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-
-            Button {
-                id: button299
-                width: 20
-                height: 20
-                text: qsTr("")
-            }
-            spacing: 1
-            rows: 10
         }
     }
-
-
 }

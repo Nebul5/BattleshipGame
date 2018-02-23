@@ -22,4 +22,8 @@ Feb 20, 2018 - 11:40am - 1:30pm = 1hr 50min
 Feb 20, 2018 - 4:00pm - 7:00pm = 3hr
 	Start Menu fully implemted, Ship selection fully implimited forplayer one and two.
 	
+Feb 22, 2018 - 12:00am - 12:36am = 36min
+	Research and made a simple drag and drop grid for ships.
 
+Feb 22, 2018 - 10:00pm - 11:30pm = 1hr 30min
+	Got dragging ships fully working and multiply ships on board from selection. New Grid system with changes. (ship placement and gameboard).
