@@ -7,6 +7,7 @@ import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
 import io.qt.examples.backend 1.0
 
+
 Window {
 
     id: mainDisplay
@@ -20,6 +21,7 @@ Window {
     property variant playerTwoShipIDs: []
     property variant holding: []
     property variant throwaway: []
+    property int idL: 0;
     BackEnd {
         id: backend
     }
@@ -454,13 +456,12 @@ Window {
                 }
                 backend.initializeShips(playerShips);
                 playerTwoShipIDs = backend.getShipsIDs();
+                backend.switchPlayer();
                 throwaway = playerOneShipIDs;
                 for(var i = 0;i<playerOneShipIDs.length;i++){
-                    holding.push(backend.getShipLength(throwaway.pop()));
-                    print(holding[i]);
+                    holding.push(backend.getShipLength(playerOneShipIDs[i]));
                 }
-                throwaway = playerOneShipIDs;
-                backend.switchPlayer();
+                idL = holding.length;
                 shipSelectionPlayer1.visible = false;
                 shipPlacmentPlayer1.visible = true;
             }
@@ -532,11 +533,11 @@ Window {
                     }
                 }
                 Repeater {
-                    model: playerOneShipIDs.length
+                    model: idL
                     Ship {                      
-                        shipWidth: 30*holding.pop()
+                        shipWidth: 30*holding[index]
                         shipHeight: 30
-                        nameD: throwaway.pop()
+                        nameD: throwaway[index]
                     }
                 }
             }

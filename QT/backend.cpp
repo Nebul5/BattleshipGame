@@ -48,19 +48,12 @@ void BackEnd::initializeShips(QList<QString> ships){
 }
 int BackEnd::getShipLength(QString id){
     if(isPlayer1){
-        for(size_t i =0;i < shipsPlayer1.size();i++){
-            qInfo(id.toUtf8().constData());
-            if(shipsPlayer1[i]->GetName()==id.toUtf8().constData())
-                return shipsPlayer1[i]->Length();
-        }
+        return shipsPlayer1[id.toInt()]->Length();
     }
     else{
-        for(size_t i =0;i < shipsPlayer2.size();i++){
-            if(shipsPlayer2[i]->GetName()==id.toUtf8().constData())
-                return shipsPlayer2[i]->Length();
-        }
+        return shipsPlayer2[id.toInt()]->Length();
     }
-    return 10;
+    return 0;
 }
 void BackEnd::switchPlayer(){
     if(isPlayer1==true)
