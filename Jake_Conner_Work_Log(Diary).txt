@@ -12,3 +12,17 @@
 	information from a vector of Ships and displays it
 	somehow. (Just ASCII right now.)
 6:38pm to 10:53
+
+2/24/2018 - Began work on state machine.
+	- Determined that a game class with states handled by the
+GUI would suffice so started working on game class implementation.
+~three hours
+
+2/24/2018 - More work on Game class.
+	- Started working on a game balance table to determine the
+	point values of different ships.
+2:50pm to 5:28pm
+
+2/25/2018 - Finished balance table for default ships
+	- Made some minor changes to game class.
+7:28pm to 10:59pm

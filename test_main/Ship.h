@@ -26,7 +26,7 @@ struct attack {
 class Ship{
     private:
 		std::string name;
-        int hp, armor, length, speed, tracked;
+        int hp, armor, length, speed, tracked, cost;
 		int x_loc, y_loc;
 		bool stealth;
 		attack Attack;
@@ -37,16 +37,16 @@ class Ship{
 		Ship() = delete;
 
 		// Ship class ctrs
-		Ship(std::string Name, int Hitpoints, int Armor, int Length, int Speed, bool Stealthy, std::function<void()> onDestroy, const attack & Attack) : 
-			name(Name), hp(Hitpoints), armor(Armor), length(Length), stealth(Stealthy), destroyed(onDestroy), Attack(Attack) {
+		Ship(std::string Name, int Hitpoints, int Armor, int Length, int Speed, int Cost, bool Stealthy, std::function<void()> onDestroy, const attack & Attack) : 
+			name(Name), hp(Hitpoints), armor(Armor), length(Length), speed(Speed), cost(Cost), stealth(Stealthy), destroyed(onDestroy), Attack(Attack) {
 			tracked = 0;
 			horiz_vert = true;
 			x_loc = 0 + length / 2;
 			y_loc = 0;
-		};
+		}; // name, hitpoints, armor, length, speed, cost, stealth, onDestroy, attack
 
 		Ship(const Ship & s) :
-			name(s.name), hp(s.hp), armor(s.armor), length(s.length), speed(s.speed), tracked(s.tracked), 
+			name(s.name), hp(s.hp), armor(s.armor), length(s.length), cost(s.cost), speed(s.speed), tracked(s.tracked), 
 			x_loc(s.x_loc), y_loc(s.y_loc), stealth(s.stealth), Attack(s.Attack), destroyed(s.destroyed),
 			horiz_vert(s.horiz_vert) {
 		};
@@ -69,6 +69,9 @@ class Ship{
 		// GetX and GetY
 		int GetX();
 		int GetY();
+
+		// GetCost
+		int GetCost();
 
 		// Move
 		void Move(int x_comp, int y_comp);

@@ -10,12 +10,30 @@
 #include "draw_board.h"
 #include <vector>
 #include <tuple>
+#include "Game.h"
 
 using std::cout;
 using std::endl;
 
 int main(){
 	
+	// *************** //
+	// Test Game class //
+	// *************** //
+
+	Game myGame;
+	Ship_ID cruiser = myGame.addShip(SHIPS::CRUISER, 4, 2);
+	draw_board(myGame.getBoard());
+	myGame.getShip(cruiser).Rotate();
+	draw_board(myGame.getBoard());
+	std::cin.get();
+
+	Ship_ID battleship = myGame.addShip(SHIPS::BATTLESHIP, 4, 0);
+	draw_board(myGame.getBoard());
+	myGame.getShip(cruiser).Rotate();
+	draw_board(myGame.getBoard());
+	std::cin.get();
+
 	// ************************** //
 	// Test the ship class itself //
 	// ************************** //
@@ -24,7 +42,7 @@ int main(){
 
 	// Make an attack and a new ship
 	attack barrage(5, 2, 3);
-	Ship boaty("boaty", 10, 4, 4, 4, false, [&keep_shooting]() { keep_shooting = false; }, barrage);
+	Ship boaty("boaty", 10, 4, 4, 4, 5, false, [&keep_shooting]() { keep_shooting = false; }, barrage);
 
 	// Keep shooting until it dies
 	while (keep_shooting) {
@@ -48,7 +66,7 @@ int main(){
 
 	// test draw_board with one cruiser in it
 	cout << "test draw_board with one cruiser in it" << endl;
-	Ship Cruiser("cruiser", 4, 0, 2, 5, false, []() {cout << "Cruiser destroyed!" << endl; }, barrage);
+	Ship Cruiser("cruiser", 4, 0, 2, 5, 5, false, []() {cout << "Cruiser destroyed!" << endl; }, barrage);
 	board.push_back(Cruiser);
 	draw_board(board);
 	std::cin.get();
@@ -74,7 +92,7 @@ int main(){
 
 	// Add a battleship
 	cout << "Add a battleship" << endl;
-	board.push_back(Ship("battleship", 10, 4, 4, 5, false, []() {cout << "Battleship destroyed!" << endl; }, barrage));
+	board.push_back(Ship("battleship", 10, 4, 4, 2, 15, false, []() {cout << "Battleship destroyed!" << endl; }, barrage));
 	draw_board(board);
 	std::cin.get();
 
@@ -98,7 +116,7 @@ int main(){
 
 	// Make an aircraft carrier
 	cout << "Make an aircraft carrier" << endl;
-	Ship newShip("aircraft carrier", 10, 0, 5, 5, false, []() {cout << "Carrier destroyed!" << endl; }, barrage);
+	Ship newShip("aircraft carrier", 10, 0, 5, 1, 20, false, []() {cout << "Carrier destroyed!" << endl; }, barrage);
 	board.push_back(newShip);
 	draw_board(board);
 	std::cin.get();
@@ -149,7 +167,7 @@ int main(){
 
 	// Now lets make a submarine
 	cout << "Now lets make a submarine" << endl;
-	Ship Sub("submarine", 6, 0, 3, 5, true, []() {cout << "Submarine destroyed!" << endl; }, barrage);
+	Ship Sub("submarine", 6, 0, 3, 5, 10, true, []() {cout << "Submarine destroyed!" << endl; }, barrage);
 	Sub.Move(7, 6);
 	board.push_back(Sub);
 
