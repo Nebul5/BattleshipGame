@@ -4,14 +4,14 @@ Item {
     id: root
     property int shipWidth
     property int shipHeight
-
+    property var nameD: []
     width: shipWidth; height: shipHeight
 
     MouseArea {
         id: mouseArea
         width: shipWidth; height: shipHeight
         drag.target: tile
-
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
         onReleased: {
             if(tile.x < 0){
                 tile.x = 0
@@ -38,7 +38,12 @@ Item {
                 y = tile.y = tile.y - tile.y % 30 + 30
             }
         }
-
+        onClicked: {
+            if(Qt.RightButton){
+                print("cake")
+                //rotate
+            }
+        }
         Rectangle {
             id: tile
             width: parent.width; height: parent.height;

@@ -5,7 +5,7 @@ import QtQuick.Controls 2.3
 import QtQuick.Controls.Universal 2.0
 import QtQuick.Extras 1.4
 import QtQuick.Layouts 1.3
-
+import io.qt.examples.backend 1.0
 
 Window {
 
@@ -15,10 +15,14 @@ Window {
     height: 480
     color: "#000000"
     title: qsTr("Battleship")
-    property variant playerOneShips: []
-    property variant playerTwoShips: []
-    property int playerOneShipsLength: 0
-    property int playerTwoShipsLength: 0
+    property variant playerShips: []
+    property variant playerOneShipIDs: []
+    property variant playerTwoShipIDs: []
+    property variant holding: []
+    property variant throwaway: []
+    BackEnd {
+        id: backend
+    }
 
     Item {
         id: startMenu
@@ -101,7 +105,7 @@ Window {
             y: 20
             width: 39
             height: 352
-            value: battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4
+            value: battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4
             maximumValue: 25
         }
 
@@ -301,7 +305,7 @@ Window {
                 }
 
                 SpinBox {
-                    id: crusierSpinBox
+                    id: cruiserSpinBox
                     width: 140
                     height: 42
                     font.pointSize: 17
@@ -396,88 +400,36 @@ Window {
     Connections {
         target: battleshipSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
+            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
                 battleshipSpinBox.decrease();
-            }
-            else{
-                if(stateName.text == "Ship Selection Player 1"){
-                    playerOneShips.push(4);
-                }
-                else
-                {
-                    playerTwoShips.push(4);
-                }
-            }
         }
     }
     Connections {
         target: destroyerSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
+            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
                 destroyerSpinBox.decrease();
-            }
-            else{
-                if(stateName.text == "Ship Selection Player 1"){
-                    playerOneShips.push(3);
-                }
-                else
-                {
-                    playerTwoShips.push(3);
-                }
-            }
         }
     }
     Connections {
-        target: crusierSpinBox
+        target: cruiserSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
-                crusierSpinBox.decrease();
-            }
-            else
-            {
-                if(stateName.text == "Ship Selection Player 1"){
-                    playerOneShips.push(2);
-                }
-                else
-                {
-                    playerTwoShips.push(2);
-                }
-            }
+            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
+                cruiserSpinBox.decrease();
         }
     }
     Connections {
         target: subSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
+            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
                 subSpinBox.decrease();
-            }
-            else{
-                if(stateName.text == "Ship Selection Player 1"){
-                    playerOneShips.push(3);
-                }
-                else
-                {
-                    playerTwoShips.push(3);
-                }
-            }
         }
     }
     Connections {
         target: carrierSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+crusierSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue){
+            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
                 carrierSpinBox.decrease();
-            }
-            else
-            {
-                if(stateName.text == "Ship Selection Player 1"){
-                    playerOneShips.push(5);
-                }
-                else
-                {
-                    playerTwoShips.push(5);
-                }
-            }
         }
 
     }
@@ -485,18 +437,60 @@ Window {
         target: finishedButton
         onClicked: {
             if(stateName.text == "Ship Selection Player 2"){
-                playerTwoShipsLength = playerTwoShips.length
+                for(var i=0;i<battleshipSpinBox.value;i++){
+                    playerShips.push("Battleship");
+                }
+                for(var i=0;i<carrierSpinBox.value;i++){
+                    playerShips.push("Carrier");
+                }
+                for(var i=0;i<destroyerSpinBox.value;i++){
+                    playerShips.push("Destroyer");
+                }
+                for(var i=0;i<cruiserSpinBox.value;i++){
+                    playerShips.push("Cruiser");
+                }
+                for(var i=0;i<subSpinBox.value;i++){
+                    playerShips.push("Sub");
+                }
+                backend.initializeShips(playerShips);
+                playerTwoShipIDs = backend.getShipsIDs();
+                throwaway = playerOneShipIDs;
+                for(var i = 0;i<playerOneShipIDs.length;i++){
+                    holding.push(backend.getShipLength(throwaway.pop()));
+                    print(holding[i]);
+                }
+                throwaway = playerOneShipIDs;
+                backend.switchPlayer();
                 shipSelectionPlayer1.visible = false;
                 shipPlacmentPlayer1.visible = true;
             }
             else
             {
-                playerOneShipsLength = playerOneShips.length
+
                 stateName.text = "Ship Selection Player 2";
+                for(var i=0;i<battleshipSpinBox.value;i++){
+                    playerShips.push("Battleship");
+                }
+                for(var i=0;i<carrierSpinBox.value;i++){
+                    playerShips.push("Carrier");
+                }
+                for(var i=0;i<destroyerSpinBox.value;i++){
+                    playerShips.push("Destroyer");
+                }
+                for(var i=0;i<cruiserSpinBox.value;i++){
+                    playerShips.push("Cruiser");
+                }
+                for(var i=0;i<subSpinBox.value;i++){
+                    playerShips.push("Sub");
+                }
+                backend.initializeShips(playerShips);
+                playerShips = [];
+                playerOneShipIDs = backend.getShipsIDs();
+                backend.switchPlayer();
                 subSpinBox.value = 0;
                 carrierSpinBox.value = 0;
                 destroyerSpinBox.value = 0;
-                crusierSpinBox.value = 0;
+                cruiserSpinBox.value = 0;
                 battleshipSpinBox.value = 0;
             }
         }
@@ -538,11 +532,11 @@ Window {
                     }
                 }
                 Repeater {
-                    model: playerOneShipsLength
-
-                    Ship {
-                        shipWidth: 30*playerOneShips.pop()
+                    model: playerOneShipIDs.length
+                    Ship {                      
+                        shipWidth: 30*holding.pop()
                         shipHeight: 30
+                        nameD: throwaway.pop()
                     }
                 }
             }
