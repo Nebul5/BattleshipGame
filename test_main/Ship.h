@@ -19,6 +19,7 @@ struct attack {
 		damage = a.damage;
 		pierce = a.pierce;
 		track = a.track;
+		return *this;
 	}
 };
 
@@ -51,6 +52,9 @@ class Ship{
 			horiz_vert(s.horiz_vert) {
 		};
 
+		// assignment operator
+		Ship & operator=(const Ship & r);
+
 		// Damage member function, for doing damage to the ship
 		int Damage(attack a);
 
@@ -81,6 +85,12 @@ class Ship{
 
 		// isVisible
 		bool isVisible();
+
+		// getAttack
+		attack & getAttack();
+
+		// setDestroy
+		void setDestroy(std::function<void()> fn);
 };
 
 #endif
