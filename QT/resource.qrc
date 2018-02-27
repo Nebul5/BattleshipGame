@@ -1,0 +1,7 @@
+<!DOCTYPE RCC>
+<RCC>
+    <qresource prefix="/ui">
+        <file>battleshiptableview.qml</file>
+        <file>Ship.qml</file>
+    </qresource>
+</RCC>

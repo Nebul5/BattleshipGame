@@ -4,16 +4,18 @@ Item {
     id: root
     property int shipWidth
     property int shipHeight
-    property var nameD: []
+    property int nameD
     property int prevX: 0
     property int prevY: 0
+    property int newX: 0
+    property int newY: 0
     property QtObject model: backend
     width: shipWidth; height: shipHeight
-    x: 0
-    y: 0
     MouseArea {
         id: mouseArea
         width: shipWidth; height: shipHeight
+        x: newX
+        y: newY
         drag.target: tile
         acceptedButtons: Qt.LeftButton | Qt.RightButton
         onReleased: {
@@ -41,13 +43,19 @@ Item {
             else{
                 y = tile.y = tile.y - tile.y % 30 + 30
             }
-            if(backend.moveShip(x,y)==false){
-                x = prevX;
-                y = prevY;
+            if(backend.moveShip(nameD,x,y)==false){
+                x = tile.x = prevX;
+                y = tile.y = prevY;
+            }
+            else{
+                prevX = x;
+                prevY = y;
             }
         }
         onClicked: {
             if(Qt.RightButton){
+                x = tile.x = prevX;
+                y = tile.y = prevY;
                 var hold = root.width;
                 root.width = root.height;
                 root.height = hold;
