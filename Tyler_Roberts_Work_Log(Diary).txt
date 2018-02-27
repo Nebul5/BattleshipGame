@@ -27,3 +27,15 @@ Feb 22, 2018 - 12:00am - 12:36am = 36min
 
 Feb 22, 2018 - 10:00pm - 11:30pm = 1hr 30min
 	Got dragging ships fully working and multiply ships on board from selection. New Grid system with changes. (ship placement and gameboard).
+
+Feb 25, 2018 - 10:10pm - 10:40pm = 30min
+	Intergrated Backend class into qui so interface it able to be called at this point.
+
+Feb 25, 2018 - 10:40pm - 11:00pm = 20min
+	Intergrated Ship.h classes to reduce parameters and are working with gui.
+
+Feb 25, 2018 - 8:00pm - 12:00am = 4hr
+	Intergrated The ship selection system but have a nasty bug which is breaking the print of ships. (String conversion error?).
+Feb 26, 2018 - 8:30am - 10:46 =
+	Fixed the string conversion bug and have started to get back on task with shipPlacement.
+
