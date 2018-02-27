@@ -44,6 +44,9 @@ void draw_board(std::vector<Ship> & ships) {
 				else if (ships[board[i][ii]].GetName() == "battleship") {
 					cout << " B ";
 				}
+				else if (ships[board[i][ii]].GetName() == "destroyer") {
+					cout << " D ";
+				}
 				else if (ships[board[i][ii]].GetName() == "aircraft carrier") {
 					cout << " A ";
 				}
@@ -112,6 +115,9 @@ void draw_enemy(std::vector<Ship> & ships, std::vector<shot> & shots) {
 			else {
 				if (ships[board[i][ii]].GetName() == "cruiser") {
 					cout << " C ";
+				}
+				else if (ships[board[i][ii]].GetName() == "destroyer") {
+					cout << " D ";
 				}
 				else if (ships[board[i][ii]].GetName() == "battleship") {
 					cout << " B ";

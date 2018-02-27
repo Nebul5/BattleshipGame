@@ -16,7 +16,8 @@ SOURCES += \
     backend.cpp \
     draw_board.cpp \
     Ship.cpp \
-    main.cpp
+    main.cpp \
+    Game.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,13 +34,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     backend.h \
-    Battleship.h \
-    Carrier.h \
-    Cruiser.h \
-    Destroyer.h \
     draw_board.h \
     Ship.h \
-    Sub.h
+    Game.h
 
 DISTFILES += \
     main.qml

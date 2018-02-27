@@ -5,7 +5,7 @@
 #include <QString>
 #include <QList>
 #include <QVector>
-
+#include "Game.h"
 #include "Ship.h"
 
 class BackEnd : public QObject
@@ -15,17 +15,16 @@ class BackEnd : public QObject
 public:
     explicit BackEnd(QObject *parent = nullptr);
 
-    Q_INVOKABLE void initializeShips(QList<QString> ships);
-    Q_INVOKABLE int getShipLength(QString id);
+    Q_INVOKABLE void initializeShips(const QList<QString> &ships);
+    Q_INVOKABLE int getShipLength(const int &id);
     Q_INVOKABLE void switchPlayer();
-    Q_INVOKABLE bool isSpinBoxIncreasing(QString id, int value);
-    Q_INVOKABLE void setSpinBoxValue(QString id,int value);
+    Q_INVOKABLE bool isSpinBoxIncreasing(const QString &id, const int &value);
+    Q_INVOKABLE void setSpinBoxValue(const QString &id, const int &value);
     Q_INVOKABLE int getAmountOfShips(){
-        if(isPlayer1)
-            return shipsPlayer1.size();
-        return shipsPlayer2.size();
-    };
-    Q_INVOKABLE QList<QString> getShipsIDs();
+        return getShipsIDs().length();
+    }
+    Q_INVOKABLE QList<int> getShipsIDs();
+    Q_INVOKABLE bool moveShip(const int &x, const int &y);
 
 signals:
 
@@ -35,9 +34,8 @@ private:
     int previousDestroyerSpinBoxValue = 0;
     int previousSubSpinBoxValue = 0;
     int previousBattleshipSpinBoxValue = 0;
-
+    Game state;
+    QVector<QVector<int>> shipIDs {{},{}};
     bool isPlayer1 = true;
-    QVector<Ship*> shipsPlayer1{};
-    QVector<Ship*> shipsPlayer2{};
 };
 #endif

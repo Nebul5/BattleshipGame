@@ -64,7 +64,7 @@ Window {
         target: startButton
         onClicked: {
             startMenu.visible = false;
-            shipSelectionPlayer1.visible = true;
+            shipSelectionPlayer.visible = true;
         }
     }
     Connections {
@@ -73,7 +73,7 @@ Window {
     }
 
     Item {
-        id: shipSelectionPlayer1
+        id: shipSelectionPlayer
         x: 27
         y: 37
         width: 587
@@ -107,8 +107,8 @@ Window {
             y: 20
             width: 39
             height: 352
-            value: battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4
-            maximumValue: 25
+            value: battleshipSpinBox.value*20+destroyerSpinBox.value*10+cruiserSpinBox.value*15+subSpinBox.value*15+carrierSpinBox.value*30
+            maximumValue: 100
         }
 
         Row {
@@ -117,6 +117,7 @@ Window {
             y: 66
             width: 492
             height: 340
+            visible: true
             spacing: 20
 
             Column {
@@ -214,10 +215,10 @@ Window {
                     height: 42
                     color: "#ffffff"
                     Text {
-                        id: text11
-                        x: 15
-                        y: 9
-                        text: qsTr("5")
+                        id: battleshipCost
+                        x: 8
+                        y: 10
+                        text: qsTr("20")
                         font.pixelSize: 20
                     }
                 }
@@ -228,10 +229,10 @@ Window {
                     height: 42
                     color: "#ffffff"
                     Text {
-                        id: text10
-                        x: 15
-                        y: 9
-                        text: qsTr("3")
+                        id: destroyerCost
+                        x: 8
+                        y: 10
+                        text: qsTr("10")
                         font.pixelSize: 20
                     }
                 }
@@ -242,10 +243,10 @@ Window {
                     height: 42
                     color: "#ffffff"
                     Text {
-                        id: text9
-                        x: 15
-                        y: 9
-                        text: qsTr("2")
+                        id: cruiserCost
+                        x: 8
+                        y: 10
+                        text: qsTr("15")
                         font.pixelSize: 20
                     }
                 }
@@ -256,10 +257,12 @@ Window {
                     height: 42
                     color: "#ffffff"
                     Text {
-                        id: text8
-                        x: 15
-                        y: 9
-                        text: qsTr("5")
+                        id: subCost
+                        x: 13
+                        y: 10
+                        width: 14
+                        height: 24
+                        text: qsTr("8")
                         font.pixelSize: 20
                     }
                 }
@@ -271,10 +274,10 @@ Window {
                     color: "#ffffff"
 
                     Text {
-                        id: text7
-                        x: 15
-                        y: 9
-                        text: qsTr("4")
+                        id: carrierCost
+                        x: 8
+                        y: 10
+                        text: qsTr("18")
                         font.pixelSize: 20
                     }
                 }
@@ -294,7 +297,7 @@ Window {
                     id: battleshipSpinBox
                     width: 140
                     height: 42
-                    to: 7
+                    to: 10
                     font.pointSize: 17
                 }
 
@@ -303,7 +306,7 @@ Window {
                     width: 140
                     height: 42
                     font.pointSize: 17
-                    to: 5
+                    to: 20
                 }
 
                 SpinBox {
@@ -312,14 +315,14 @@ Window {
                     height: 42
                     font.pointSize: 17
                     editable: false
-                    to: 13
+                    to: 40
                 }
 
                 SpinBox {
                     id: subSpinBox
                     width: 140
                     height: 42
-                    to: 5
+                    to: 50
                     font.pointSize: 17
                 }
 
@@ -328,7 +331,7 @@ Window {
                     width: 140
                     height: 42
                     font.pointSize: 17
-                    to: 13
+                    to: 15
                 }
 
 
@@ -366,7 +369,7 @@ Window {
 
         Text {
             id: costText
-            x: 255
+            x: 251
             y: 21
             color: "#ffffff"
             text: qsTr("Cost")
@@ -402,35 +405,35 @@ Window {
     Connections {
         target: battleshipSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
+            if((battleshipSpinBox.value*20+destroyerSpinBox.value*10+cruiserSpinBox.value*15+subSpinBox.value*15+carrierSpinBox.value*30) > pointsUsed.maximumValue)
                 battleshipSpinBox.decrease();
         }
     }
     Connections {
         target: destroyerSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
+            if((battleshipSpinBox.value*20+destroyerSpinBox.value*10+cruiserSpinBox.value*15+subSpinBox.value*15+carrierSpinBox.value*30) > pointsUsed.maximumValue)
                 destroyerSpinBox.decrease();
         }
     }
     Connections {
         target: cruiserSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
+            if((battleshipSpinBox.value*20+destroyerSpinBox.value*10+cruiserSpinBox.value*15+subSpinBox.value*15+carrierSpinBox.value*30) > pointsUsed.maximumValue)
                 cruiserSpinBox.decrease();
         }
     }
     Connections {
         target: subSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
+            if((battleshipSpinBox.value*20+destroyerSpinBox.value*10+cruiserSpinBox.value*15+subSpinBox.value*15+carrierSpinBox.value*30) > pointsUsed.maximumValue)
                 subSpinBox.decrease();
         }
     }
     Connections {
         target: carrierSpinBox
         onValueModified: {
-            if((battleshipSpinBox.value*5+destroyerSpinBox.value*3+cruiserSpinBox.value*2+subSpinBox.value*5+carrierSpinBox.value*4) > pointsUsed.maximumValue)
+            if((battleshipSpinBox.value*20+destroyerSpinBox.value*10+cruiserSpinBox.value*15+subSpinBox.value*15+carrierSpinBox.value*30) > pointsUsed.maximumValue)
                 carrierSpinBox.decrease();
         }
 
@@ -462,8 +465,8 @@ Window {
                     holding.push(backend.getShipLength(playerOneShipIDs[i]));
                 }
                 idL = holding.length;
-                shipSelectionPlayer1.visible = false;
-                shipPlacmentPlayer1.visible = true;
+                shipSelectionPlayer.visible = false;
+                shipPlacmentPlayer.visible = true;
             }
             else
             {
@@ -498,8 +501,8 @@ Window {
     }
 
     Item {
-        id: shipPlacmentPlayer1
-        x: 1
+        id: shipPlacmentPlayer
+        x: 0
         y: 0
         width: 639
         height: 480
@@ -513,9 +516,13 @@ Window {
             anchors.verticalCenter: parent.TopRight
             width: 300; height: 300
             color: "#505050"
+            anchors.horizontalCenterOffset: 0
             property int tablesize: 10
+            y: 75
 
             Grid {
+                x: 0
+                y: 0
                 columns: parent.tablesize
                 rows: parent.tablesize
                 spacing: 0
@@ -544,11 +551,31 @@ Window {
         }
 
         Button {
-            id: button
+            id: shipPlacementFinish
             x: 270
             y: 403
             text: qsTr("Done")
         }
+
+        Text {
+            id: shipPlacementText
+            x: 174
+            y: 19
+            color: "#f6f2f2"
+            text: qsTr("Ship Placement Player 1")
+            font.pixelSize: 24
+        }
+    }
+    Connections{
+        target: shipPlacementFinish
+        onClicked:
+            if(shipPlacementText == "Ship Placement Player 1"){
+                backend.switchPlayer();
+
+            }
+            else{
+                backend.switchPlayer();
+            }
     }
 
     Item {

@@ -1,67 +1,40 @@
-#include "backend.h"
-#include "Sub.h"
-#include "Carrier.h"
-#include "Destroyer.h"
-#include "Battleship.h"
-#include "Cruiser.h"
-#include "Ship.h"
+
 #include <QList>
 #include <string>
 using std::to_string;
 #include <iostream>
+#include "backend.h"
+#include "Ship.h"
+#include "Game.h"
 using std::cout;
+
 BackEnd::BackEnd(QObject *parent) :
     QObject(parent)
 {
 }
 
-void BackEnd::initializeShips(QList<QString> ships){
-    if(isPlayer1){
-        for(auto ship : ships){
-            if(ship=="Carrier")
-                shipsPlayer1.push_back(new Carrier(to_string(shipsPlayer1.length())));
-            else if(ship == "Cruiser")
-                shipsPlayer1.push_back(new Cruiser(to_string(shipsPlayer1.length())));
-            else if(ship == "Destroyer")
-                shipsPlayer1.push_back(new Destroyer(to_string(shipsPlayer1.length())));
-            else if(ship == "Sub")
-                shipsPlayer1.push_back(new Sub(to_string(shipsPlayer1.length())));
-            else if(ship == "Battleship")
-                shipsPlayer1.push_back(new Battleship(to_string(shipsPlayer1.length())));
-        }
-    }
-    else
-    {
-        for(auto ship : ships){
-            if(ship=="Carrier")
-                shipsPlayer2.push_back(new Carrier(to_string(shipsPlayer2.length())));
-            else if(ship == "Cruiser")
-                shipsPlayer2.push_back(new Cruiser(to_string(shipsPlayer2.length())));
-            else if(ship == "Destroyer")
-                shipsPlayer2.push_back(new Destroyer(to_string(shipsPlayer2.length())));
-            else if(ship == "Sub")
-                shipsPlayer2.push_back(new Sub(to_string(shipsPlayer2.length())));
-            else if(ship == "Battleship")
-                shipsPlayer2.push_back(new Battleship(to_string(shipsPlayer2.length())));
-        }
+void BackEnd::initializeShips(const QList<QString> &ships){
+    for(auto ship : ships){
+        if(ship=="Carrier")
+            shipIDs[isPlayer1].push_back(state.addShip(4,0,0));
+        else if(ship == "Cruiser")
+            shipIDs[isPlayer1].push_back(state.addShip(2,0,0));
+        else if(ship == "Destroyer")
+            shipIDs[isPlayer1].push_back(state.addShip(0,0,0));
+        else if(ship == "Sub")
+            shipIDs[isPlayer1].push_back(state.addShip(1,0,0));
+        else if(ship == "Battleship")
+            shipIDs[isPlayer1].push_back(state.addShip(3,0,0));
     }
 }
-int BackEnd::getShipLength(QString id){
-    if(isPlayer1){
-        return shipsPlayer1[id.toInt()]->Length();
-    }
-    else{
-        return shipsPlayer2[id.toInt()]->Length();
-    }
-    return 0;
+int BackEnd::getShipLength(const int &id){
+    return state.getShip(id).Length();
 }
 void BackEnd::switchPlayer(){
-    if(isPlayer1==true)
-        isPlayer1 = false;
-    else
-        isPlayer1 = true;
+    isPlayer1 = !isPlayer1;
+    state.switchPlayer();
 }
-bool BackEnd::isSpinBoxIncreasing(QString id, int value){
+bool BackEnd::isSpinBoxIncreasing(const QString &id, const int &value){
     if(id == "Cruiser")
         if(previousCruiserSpinBoxValue < value)
             return true;
@@ -79,7 +52,7 @@ bool BackEnd::isSpinBoxIncreasing(QString id, int value){
             return true;
     return false;
 }
-void BackEnd::setSpinBoxValue(QString id,int value){
+void BackEnd::setSpinBoxValue(const QString &id, const int &value){
     if(id == "Cruiser")
         previousCruiserSpinBoxValue = value;
     else if(id == "Battleship")
@@ -92,17 +65,13 @@ void BackEnd::setSpinBoxValue(QString id,int value){
         previousCarrierSpinBoxValue = value;
 
 }
-QList<QString> BackEnd::getShipsIDs(){
-    QList<QString> shipNames{};
-    if(isPlayer1){
-        for(size_t i =0;i < shipsPlayer1.size();i++){
-            shipNames.push_back(QString::fromStdString(shipsPlayer1[i]->GetName()));
-        }
-    }
-    else{
-        for(size_t i =0;i < shipsPlayer2.size();i++){
-            shipNames.push_back(QString::fromStdString(shipsPlayer2[i]->GetName()));
-        }
-    }
-    return shipNames;
+QList<int> BackEnd::getShipsIDs(){
+    QList<int> hold;
+    for(auto shipID : shipIDs[isPlayer1])
+        hold.push_back(shipID);
+    return hold;
 }
+bool BackEnd::moveShip(const int &x, const int &y){
+    return true;
+}
+

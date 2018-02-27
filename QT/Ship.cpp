@@ -62,6 +62,11 @@ int Ship::GetY() {
 	return y_loc;
 }
 
+// GetCost
+int Ship::GetCost() {
+	return cost;
+}
+
 // Move
 void Ship::Move(int x_comp, int y_comp) {
 	x_loc += x_comp;
@@ -76,5 +81,4 @@ void Ship::Rotate() {
 // isVisible
 bool Ship::isVisible() {
 	return (tracked > 0);
-
 }
