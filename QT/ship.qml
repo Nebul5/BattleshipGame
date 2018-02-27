@@ -5,8 +5,12 @@ Item {
     property int shipWidth
     property int shipHeight
     property var nameD: []
+    property int prevX: 0
+    property int prevY: 0
+    property QtObject model: backend
     width: shipWidth; height: shipHeight
-
+    x: 0
+    y: 0
     MouseArea {
         id: mouseArea
         width: shipWidth; height: shipHeight
@@ -19,11 +23,11 @@ Item {
             if(tile.y < 0){
                 tile.y = 0
             }
-            if(tile.y > 300-shipHeight){
-                tile.y = 300-shipHeight
+            if(tile.y > 300-mouseArea.height){
+                tile.y = 300-mouseArea.height
             }
-            if(tile.x > 300-shipWidth){
-                tile.x = 300-shipWidth
+            if(tile.x > 300-mouseArea.width){
+                tile.x = 300-mouseArea.width
             }
             if(tile.x % 30 < 15){
                 x = tile.x = tile.x - tile.x % 30
@@ -37,11 +41,20 @@ Item {
             else{
                 y = tile.y = tile.y - tile.y % 30 + 30
             }
+            if(backend.moveShip(x,y)==false){
+                x = prevX;
+                y = prevY;
+            }
         }
         onClicked: {
             if(Qt.RightButton){
-                print("cake")
-                //rotate
+                var hold = root.width;
+                root.width = root.height;
+                root.height = hold;
+                tile.width = parent.width;
+                tile.height = parent.height;
+                mouseArea.width = parent.width;
+                mouseArea.height = parent.height;
             }
         }
         Rectangle {
