@@ -22,17 +22,32 @@ int main(){
 	// *************** //
 
 	Game myGame;
-	Ship_ID cruiser = myGame.addShip(SHIPS::CRUISER, 4, 2);
-	draw_board(myGame.getBoard());
-	myGame.getShip(cruiser).Rotate();
-	draw_board(myGame.getBoard());
+	Ship_UID cruiser = myGame.addShip(SHIPS::CRUISER, 4, 2);
+	myGame.printBoard();
 	std::cin.get();
 
-	Ship_ID battleship = myGame.addShip(SHIPS::BATTLESHIP, 4, 0);
-	draw_board(myGame.getBoard());
-	myGame.getShip(cruiser).Rotate();
-	draw_board(myGame.getBoard());
+	myGame.switchPlayer();
+	Ship_UID battleship = myGame.addShip(SHIPS::BATTLESHIP, 4, 0);
+	myGame.printBoard();
+	cout << endl << myGame.pointTotals();
 	std::cin.get();
+
+	std::vector<shot> thisTurn = myGame.shoot(battleship, 4, 2);
+	myGame.printEnemy();
+	std::cin.get();
+
+	std::vector<shot> thisTurn2 = myGame.shoot(battleship, 5, 2);
+	myGame.printEnemy();
+	std::cin.get();
+
+	std::vector<shot> thisTurn3 = myGame.shoot(battleship, 6, 2);
+	myGame.printEnemy();
+	std::cin.get();
+
+	cout << std::to_string(myGame.shipsRemaining()) << endl;
+	myGame.switchPlayer();
+	cout << std::to_string(myGame.shipsRemaining()) << endl;
+
 
 	// ************************** //
 	// Test the ship class itself //
