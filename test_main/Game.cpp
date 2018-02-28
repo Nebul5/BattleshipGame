@@ -15,6 +15,8 @@ Game::Game() {
 	attack torpedo(8, 0, 0);
 	attack planes(4, 0, 1);
 
+	onSwitch = []() {};
+	onGameOver = []() {};
 
 	// name, hitpoints, armor, length, speed, cost, stealth, onDestroy, attack
 
@@ -47,6 +49,9 @@ Game::Game(std::vector<Ship> & Types, int Points) {
 	selectedPlayer = 0;
 	gameOver = false;
 	turn = 0;
+
+	onSwitch = []() {};
+	onGameOver = []() {};
 
 	std::vector<Ship> boardOne;
 	boards.push_back(boardOne);
@@ -105,6 +110,7 @@ void Game::destroyShip(Ship_UID ID) {
 void Game::switchPlayer() {
 	selectedPlayer = !selectedPlayer;
 	shotsFired.player = selectedPlayer;
+	onSwitch();
 }
 
 // getBoard

@@ -15,6 +15,26 @@
 using std::cout;
 using std::endl;
 
+struct PlayerNum {
+	int player;
+	PlayerNum() {
+		player = 1;
+	}
+
+	operator int() {
+		return player;
+	}
+
+	void Switch() {
+		if (player == 2) {
+			player = 1;
+		}
+		else {
+			player = 2;
+		}
+	}
+};
+
 int main(){
 	
 	// *************** //
@@ -32,14 +52,11 @@ int main(){
 	cout << endl << myGame.pointTotals();
 	std::cin.get();
 
-	int player = myGame.currentPlayer();
-	myGame.registerOnSwitch([&player]() { 
-		if (player == 2) {
-			player = 1;
-		}
-		else {
-			player = 2;
-		}
+	PlayerNum player;
+	player.player = myGame.currentPlayer();
+	//std::function<void()> Switch = std::bind(&PlayerNum::Switch, &player);
+	myGame.registerOnSwitch([&player]() {
+		player.Switch();
 	});
 	myGame.registerGameOver([&player]() {cout << "Game Over! " << "Player " << std::to_string(player) << " wins!" << endl; });
 
