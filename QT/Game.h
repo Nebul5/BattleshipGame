@@ -23,6 +23,7 @@ public:
 	Ship & getShip(Ship_ID ID); // Returns the ship with the given ID
 	void switchPlayer();
 	std::vector<Ship> & getBoard();
+    bool moveShip(const int &id, const int &x, const int &y);
 };
 
 #endif

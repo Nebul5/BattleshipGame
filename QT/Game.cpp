@@ -51,7 +51,7 @@ Ship & Game::getShip(Ship_ID ID) {
 		return boards[selectedPlayer][ID-1];
 	}
 	else {
-		throw("No such ship on the board, make sure it was added successfully");
+        throw("No such ship on the board, make sure it was added successfully");
 	}
 }
 
@@ -60,5 +60,11 @@ void Game::switchPlayer() {
 }
 
 std::vector<Ship> & Game::getBoard() {
+
 	return boards[selectedPlayer];
+}
+
+bool Game::moveShip(const int &id, const int &x, const int &y){
+    getShip(id).Move(x,y);
+    return true;
 }

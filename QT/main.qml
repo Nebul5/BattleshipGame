@@ -21,7 +21,14 @@ Window {
     property variant playerTwoShipIDs: []
     property variant holding: []
     property variant throwaway: []
-    property int idL: 0;
+    property variant holding2: []
+    property variant throwaway2: []
+    property int idL: 0
+    property int idL2: 0
+    property variant xpos: []
+    property variant ypos: []
+    property variant xpos2: []
+    property variant ypos2: []
     BackEnd {
         id: backend
     }
@@ -262,7 +269,7 @@ Window {
                         y: 10
                         width: 14
                         height: 24
-                        text: qsTr("8")
+                        text: qsTr("18")
                         font.pixelSize: 20
                     }
                 }
@@ -277,7 +284,7 @@ Window {
                         id: carrierCost
                         x: 8
                         y: 10
-                        text: qsTr("18")
+                        text: qsTr("30")
                         font.pixelSize: 20
                     }
                 }
@@ -466,7 +473,7 @@ Window {
                 }
                 idL = holding.length;
                 shipSelectionPlayer.visible = false;
-                shipPlacmentPlayer.visible = true;
+                shipPlacmentPlayer1.visible = true;
             }
             else
             {
@@ -501,7 +508,8 @@ Window {
     }
 
     Item {
-        id: shipPlacmentPlayer
+
+        id: shipPlacmentPlayer1
         x: 0
         y: 0
         width: 639
@@ -545,6 +553,8 @@ Window {
                         shipWidth: 30*holding[index]
                         shipHeight: 30
                         nameD: throwaway[index]
+                        newX: 0
+                        newY: 30*[index]
                     }
                 }
             }
@@ -566,18 +576,105 @@ Window {
             font.pixelSize: 24
         }
     }
-    Connections{
+    Connections {
         target: shipPlacementFinish
-        onClicked:
-            if(shipPlacementText == "Ship Placement Player 1"){
-                backend.switchPlayer();
-
+        onClicked: {
+            backend.switchPlayer();
+            throwaway2 = playerTwoShipIDs;
+            for(var i = 0;i<playerTwoShipIDs.length;i++){
+                holding2.push(backend.getShipLength(playerTwoShipIDs[i]));
             }
-            else{
-                backend.switchPlayer();
-            }
+            idL2 = playerTwoShipIDs.length;
+            shipPlacmentPlayer1.visible = false;
+            shipPlacmentPlayer2.visible = true;
+        }
     }
 
+    Item {
+
+        id: shipPlacmentPlayer2
+        x: 0
+        y: 0
+        width: 639
+        height: 480
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenter: parent.verticalCenter
+        visible: false
+
+        Rectangle {
+            id: boundsRec2
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.verticalCenter: parent.TopRight
+            width: 300; height: 300
+            color: "#505050"
+            anchors.horizontalCenterOffset: 0
+            property int tablesize: 10
+            y: 75
+
+            Grid {
+                x: 0
+                y: 0
+                columns: parent.tablesize
+                rows: parent.tablesize
+                spacing: 0
+                z: 0
+
+                Repeater {
+                    model: parent.columns * parent.rows
+
+                    Rectangle {
+                        id: dropRectangle2
+                        color: "white"
+                        width: 30
+                        height: 30
+                        border.color: "#dddddd"
+                    }
+                }
+                Repeater {
+                    model: idL2
+                    Ship {
+                        shipWidth: 30*holding2[index]
+                        shipHeight: 30
+                        nameD: throwaway2[index]
+                        newX: 0
+                        newY: 30*[index]
+                    }
+                }
+            }
+        }
+
+        Button {
+            id: shipPlacementFinish2
+            x: 270
+            y: 403
+            text: qsTr("Done")
+        }
+
+        Text {
+            id: shipPlacementText2
+            x: 174
+            y: 19
+            color: "#f6f2f2"
+            text: qsTr("Ship Placement Player 2")
+            font.pixelSize: 24
+        }
+    }
+    Connections{
+        target: shipPlacementFinish2
+        onClicked:  {
+            for(var i = 0;i<playerTwoShipIDs.length;i++){
+                xpos2.push(backend.getX(playerTwoShipIDs[i]));
+                ypos2.push(backend.getY(playerTwoShipIDs[i]));
+            }
+            backend.switchPlayer();
+            for(var i = 0;i<playerOneShipIDs.length;i++){
+                xpos.push(backend.getX(playerOneShipIDs[i]));
+                ypos.push(backend.getY(playerOneShipIDs[i]));
+            }
+            shipPlacmentPlayer2.visible = false;
+            gameState.visible = true;
+        }
+    }
     Item {
         id: gameState
         width: 640
@@ -597,6 +694,8 @@ Window {
             property int tablesize: 10
 
             Grid {
+                x: 0
+                y: 0
                 columns: parent.tablesize
                 rows: parent.tablesize
                 spacing: 0
@@ -613,11 +712,16 @@ Window {
                         border.color: "#dddddd"
                     }
                 }
-            }
-
-            Ship {
-                shipWidth: 30*2 // ship size
-                shipHeight: 30
+                Repeater {
+                    model: idL
+                    Ship {
+                        shipWidth: 30*holding[index]
+                        shipHeight: 30
+                        nameD: throwaway[index]
+                        newX: 30*xpos[index]
+                        newY: 30*ypos[index]
+                    }
+                }
             }
         }
 
@@ -627,11 +731,13 @@ Window {
             anchors.verticalCenter: parent.verticalCenter
             width: 300; height: 300
             color: "#505050"
-            anchors.verticalCenterOffset: 0
+            anchors.verticalCenterOffset: 0*backend.switchPlayer()
             anchors.horizontalCenterOffset: 170
             property int tablesize: 10
 
             Grid {
+                x: 0
+                y: 0
                 columns: parent.tablesize
                 rows: parent.tablesize
                 spacing: 0
@@ -648,12 +754,19 @@ Window {
                         border.color: "#dddddd"
                     }
                 }
-            }
+                Repeater {
+                    model: idL2
+                    Ship {
+                        shipWidth: 30*holding2[index]
+                        shipHeight: 30
+                        nameD:  throwaway2[index]
+                        newX: 30*xpos2[index]
+                        newY: 30*ypos2[index]
 
-            Ship {
-                shipWidth: 30*2 // ship size
-                shipHeight: 30
+                    }
+                }
             }
         }
     }
 }
+

@@ -36,6 +36,11 @@ Feb 25, 2018 - 10:40pm - 11:00pm = 20min
 
 Feb 25, 2018 - 8:00pm - 12:00am = 4hr
 	Intergrated The ship selection system but have a nasty bug which is breaking the print of ships. (String conversion error?).
-Feb 26, 2018 - 8:30am - 10:46 =
+	
+Feb 26, 2018 - 8:30am - 10:46 = 2hr 16min
 	Fixed the string conversion bug and have started to get back on task with shipPlacement.
+
+Feb 27, 2018 -  11:00am to 3:00pm = 4hr
+	Well ship placement and ship selection work together but gamestate is complete broke. I honestly have no clue why should be working almost Identical code.
+
 
