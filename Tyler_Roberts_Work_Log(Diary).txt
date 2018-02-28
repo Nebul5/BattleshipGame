@@ -43,4 +43,13 @@ Feb 26, 2018 - 8:30am - 10:46 = 2hr 16min
 Feb 27, 2018 -  11:00am to 3:00pm = 4hr
 	Well ship placement and ship selection work together but gamestate is complete broke. I honestly have no clue why should be working almost Identical code.
 
+Feb 27, 2018 - 5:30 to 7:00 = 2hr 30min
+	Pairprogrammed some gui to try and get it working but ended up basically the same place but fixed a few bugs.
 
+Total GUI: 23 hr 27 min
+Total Backend: 5 hr 10 min
+Total: 27 hr 37 min
+
+Burndown chart was very good at begining as we got the backend down very fast and effiecent but with the gui it spiked and went way out of range of what I thoguht it would take and even ended up unfinished.
+
+Trello is what we used for tracking are task and Github as are repo.

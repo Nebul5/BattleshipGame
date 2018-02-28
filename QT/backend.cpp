@@ -17,15 +17,15 @@ void BackEnd::initializeShips(const QList<QString> &ships){
 
     for(int i = 0;i < ships.size();i++){
         if(ships[i]=="Carrier")
-            shipIDs[isPlayer1].push_back(state.addShip(4,0,30*i));
+            shipIDs[isPlayer1].push_back(state.addShip(4,0,i));
         else if(ships[i] == "Cruiser")
-            shipIDs[isPlayer1].push_back(state.addShip(1,0,30*i));
+            shipIDs[isPlayer1].push_back(state.addShip(1,0,i));
         else if(ships[i] == "Destroyer")
-            shipIDs[isPlayer1].push_back(state.addShip(0,0,30*i));
+            shipIDs[isPlayer1].push_back(state.addShip(0,0,i));
         else if(ships[i] == "Sub")
-            shipIDs[isPlayer1].push_back(state.addShip(3,0,30*i));
+            shipIDs[isPlayer1].push_back(state.addShip(3,0,i));
         else if(ships[i] == "Battleship")
-            shipIDs[isPlayer1].push_back(state.addShip(2,0,30*i));
+            shipIDs[isPlayer1].push_back(state.addShip(2,0,i));
     }
 }
 int BackEnd::getShipLength(const int &id){
@@ -79,7 +79,7 @@ QList<int> BackEnd::getShipsIDs(){
     return hold;
 }
 bool BackEnd::moveShip(const int &id, const int &x, const int &y){
-    state.moveShip(id,x/30,y/30);
+    state.moveShip(id,x,y);
     return true;
 }
 int BackEnd::getX(const int &id){
@@ -87,4 +87,7 @@ int BackEnd::getX(const int &id){
 }
 int BackEnd::getY(const int &id){
     return state.getShip(id).GetY();
+}
+void BackEnd::displayConsole(){
+    state.printBoard();
 }

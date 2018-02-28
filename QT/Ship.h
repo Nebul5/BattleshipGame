@@ -19,6 +19,7 @@ struct attack {
 		damage = a.damage;
 		pierce = a.pierce;
 		track = a.track;
+		return *this;
 	}
 };
 
@@ -43,19 +44,22 @@ class Ship{
 			horiz_vert = true;
 			x_loc = 0 + length / 2;
 			y_loc = 0;
-        } // name, hitpoints, armor, length, speed, cost, stealth, onDestroy, attack
+		}; // name, hitpoints, armor, length, speed, cost, stealth, onDestroy, attack
 
 		Ship(const Ship & s) :
 			name(s.name), hp(s.hp), armor(s.armor), length(s.length), cost(s.cost), speed(s.speed), tracked(s.tracked), 
 			x_loc(s.x_loc), y_loc(s.y_loc), stealth(s.stealth), Attack(s.Attack), destroyed(s.destroyed),
 			horiz_vert(s.horiz_vert) {
-        }
+		};
+
+		// assignment operator
+		Ship & operator=(const Ship & r);
 
 		// Damage member function, for doing damage to the ship
 		int Damage(attack a);
 
 		// Length member function
-        int Length() { return length; }
+		int Length() { return length; };
 
 		// Report member function
 		std::string Report();
@@ -74,13 +78,19 @@ class Ship{
 		int GetCost();
 
 		// Move
-		void Move(int x_comp, int y_comp);
+		void Move(int x, int y);
 
 		// Rotate
 		void Rotate();
 
 		// isVisible
 		bool isVisible();
+
+		// getAttack
+		attack & getAttack();
+
+		// setDestroy
+		void setDestroy(std::function<void()> fn);
 };
 
 #endif

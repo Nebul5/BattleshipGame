@@ -27,6 +27,7 @@ public:
     Q_INVOKABLE bool moveShip(const int &id, const int &x, const int &y);
     Q_INVOKABLE int getX(const int &id);
     Q_INVOKABLE int getY(const int &id);
+    Q_INVOKABLE void displayConsole();
 
 signals:
 

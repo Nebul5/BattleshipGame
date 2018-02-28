@@ -47,6 +47,11 @@ std::string Ship::Orientation() {
 	}
 }
 
+// assignment operator
+Ship & Ship::operator=(const Ship & r) {
+	return *this = Ship(r);
+}
+
 // GetName
 std::string Ship::GetName() {
 	return name;
@@ -68,9 +73,9 @@ int Ship::GetCost() {
 }
 
 // Move
-void Ship::Move(int x_comp, int y_comp) {
-	x_loc += x_comp;
-	y_loc += y_comp;
+void Ship::Move(int x, int y) {
+	x_loc = x;
+	y_loc = y;
 }
 
 // Rotate
@@ -78,7 +83,17 @@ void Ship::Rotate() {
 	horiz_vert = !horiz_vert;
 }
 
+// setDestroy
+void Ship::setDestroy(std::function<void()> fn) {
+	destroyed = fn;
+}
+
 // isVisible
 bool Ship::isVisible() {
 	return (tracked > 0);
+}
+
+// getAttack
+attack & Ship::getAttack() {
+	return Attack;
 }
