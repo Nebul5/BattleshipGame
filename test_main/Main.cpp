@@ -32,21 +32,51 @@ int main(){
 	cout << endl << myGame.pointTotals();
 	std::cin.get();
 
-	std::vector<shot> thisTurn = myGame.shoot(battleship, 4, 2);
+	int player = myGame.currentPlayer();
+	myGame.registerOnSwitch([&player]() { 
+		if (player == 2) {
+			player = 1;
+		}
+		else {
+			player = 2;
+		}
+	});
+	myGame.registerGameOver([&player]() {cout << "Game Over! " << "Player " << std::to_string(player) << " wins!" << endl; });
+
+	myGame.switchPlayer();
+	cout << "Player " << std::to_string(player) << endl;
+	myGame.switchPlayer();
+	cout << "Player " << std::to_string(player) << endl;
+
+	// Test shoot and gameOver
+	std::vector<shot> thisTurn = myGame.shoot(battleship, 3, 2);
 	myGame.printEnemy();
 	std::cin.get();
 
-	std::vector<shot> thisTurn2 = myGame.shoot(battleship, 5, 2);
+	std::vector<shot> thisTurn2 = myGame.shoot(battleship, 4, 2);
 	myGame.printEnemy();
 	std::cin.get();
 
-	std::vector<shot> thisTurn3 = myGame.shoot(battleship, 6, 2);
+	std::vector<shot> thisTurn3 = myGame.shoot(battleship, 5, 2);
 	myGame.printEnemy();
 	std::cin.get();
 
 	cout << std::to_string(myGame.shipsRemaining()) << endl;
 	myGame.switchPlayer();
-	cout << std::to_string(myGame.shipsRemaining()) << endl;
+	cout << std::to_string(myGame.shipsRemaining()) << " " << myGame.getShip(cruiser).Report() << endl;
+	
+	// Test cases for moveShip and rotateShip
+	Ship_UID aship = myGame.addShip(SHIPS::CRUISER, 2, 0);
+	Ship_UID bship = myGame.addShip(SHIPS::BATTLESHIP, 2, 1);
+	Ship_UID cship = myGame.addShip(SHIPS::DESTROYER, 5, 0);
+	Ship_UID dship = myGame.addShip(SHIPS::BATTLESHIP, 6, 1);
+	myGame.moveShip(cship, 9, 1);
+	Ship_UID eship = myGame.addShip(SHIPS::CRUISER, 6, 0);
+	myGame.moveShip(cship, 5, 2);
+	myGame.rotateShip(cship);
+	myGame.rotateShip(dship);
+	myGame.printBoard();
+	std::cin.get();
 
 
 	// ************************** //

@@ -66,6 +66,10 @@ struct IDBase {
 		return data[UID];
 	}
 
+	Ship_ID index(int UID) {
+		return std::get<1>(data[UID])-1;
+	}
+
 	int add(bool player, Ship_ID ID) {
 		data.insert(std::make_pair(unique_index, std::make_pair(player, ID)));
 		return unique_index++;
@@ -82,12 +86,14 @@ private:
 	int pointTotal[2];
 	int turn;
 	bool selectedPlayer;
+	bool gameOver;
 	std::vector<std::vector<Ship>> boards;
 	std::vector<Ship> shipTypes;
 	turnTrack shotsFired;
 	IDBase IDB;
 
 	std::function<void()> onGameOver;
+	std::function<void()> onSwitch;
 
 public:
 	// Ctrs
@@ -98,21 +104,24 @@ public:
 	Ship & getShip(int UID); // Returns the ship with the given ID
 	void destroyShip(Ship_UID ID);
 	void switchPlayer();
+	void nextTurn();
 
 	std::vector<shot> & shoot(Ship_UID s, std::size_t x, std::size_t y);
 	bool moveShip(Ship_UID s, std::size_t x, std::size_t y);
 	bool rotateShip(Ship_UID s);
 
 	// Helper functions
-	bool isLegalPlacement(Ship & s);
+	bool isLegalPlacement(int index);
 	int shipsRemaining();
 	std::vector<Ship> & getBoard();
+	int currentPlayer();
 
 	void printBoard();
 	void printEnemy();
 
 	std::string pointTotals();
-	void registerGameOver(std::function<void()> end);
+	void registerGameOver(std::function<void()> endFn);
+	void registerOnSwitch(std::function<void()> switchFn);
 };
 
 #endif

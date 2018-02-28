@@ -6,6 +6,7 @@ Game::Game() {
 	pointTotal[0] = 100;
 	pointTotal[1] = 100;
 	selectedPlayer = 0;
+	gameOver = false;
 	turn = 0;
 
 	attack low(4, 0, 0);
@@ -44,6 +45,7 @@ Game::Game(std::vector<Ship> & Types, int Points) {
 	pointTotal[0] = Points;
 	pointTotal[1] = Points;
 	selectedPlayer = 0;
+	gameOver = false;
 	turn = 0;
 
 	std::vector<Ship> boardOne;
@@ -59,16 +61,19 @@ Ship_UID Game::addShip(std::size_t ship, std::size_t x, std::size_t y) {
 		// Copy the ship from our prebuilt types
 		boards[selectedPlayer].push_back(Ship(shipTypes[ship]));
 
-		// Subtract the cost from the player and move the ship to the proper location
-		pointTotal[selectedPlayer]-=shipTypes[ship].GetCost();
-		boards[selectedPlayer][boards[selectedPlayer].size() - 1].Move(x, y);
-
 		// Set the ships destructor to change our ID base
 		Ship_UID ID = IDB.add(selectedPlayer, boards[selectedPlayer].size());
 		getShip(ID).setDestroy([ID, this]() {
 			destroyShip(ID);
 		});
-		return ID;
+		if (moveShip(ID, x, y)) {
+			// Subtract the cost, we can legally add the ship
+			pointTotal[selectedPlayer] -= shipTypes[ship].GetCost();
+			return ID;
+		}
+		// destroy the ship and return, placement was illegal
+		destroyShip(ID);
+		return 0;
 	}
 	else {
 		return 0;
@@ -111,12 +116,21 @@ std::vector<Ship> & Game::getBoard() {
 std::vector<shot> & Game::shoot(Ship_UID s, std::size_t x, std::size_t y) {
 	shot newShot(x, y, boards[!selectedPlayer], getShip(s).getAttack());
 	shotsFired.addShot(newShot);
+	if (boards[!selectedPlayer].size() == 0) {
+		gameOver = true;
+		onGameOver();
+	}
 	return shotsFired.current();
 }
 
 // printBoard
 void Game::printBoard() {
 	draw_board(boards[selectedPlayer]);
+}
+
+// currentPlayer
+int Game::currentPlayer() {
+	return (int)selectedPlayer + 1;
 }
 
 // printEnemy
@@ -135,21 +149,117 @@ std::string Game::pointTotals() {
 }
 
 // registerGameOver
-void Game::registerGameOver(std::function<void()> end) {
-	onGameOver = end;
+void Game::registerGameOver(std::function<void()> endFn) {
+	onGameOver = endFn;
 }
 
+// registerOnSwitch
+void Game::registerOnSwitch(std::function<void()> switchFn) {
+	onSwitch = switchFn;
+}
+
+// nextTurn
+void Game::nextTurn() {
+	shotsFired.newTurn();
+	turn++;
+}
+
+// moveShip
 bool Game::moveShip(Ship_UID s, std::size_t x, std::size_t y) {
-	// TODO
-	return 0;
+	int x_origin = getShip(s).GetX();
+	int y_origin = getShip(s).GetY();
+	getShip(s).Move(x, y);
+	if (isLegalPlacement(IDB.index(s))) {
+		return true;
+	}
+	else {
+		getShip(s).Move(x_origin, y_origin);
+		return false;
+	}
 }
 
+// rotateShip
 bool Game::rotateShip(Ship_UID s) {
-	// TODO
-	return 0;
+	getShip(s).Rotate();
+	if (isLegalPlacement(IDB.index(s))) {
+		return true;
+	}
+	else {
+		getShip(s).Rotate();
+		return false;
+	}
 }
 
-bool Game::isLegalPlacement(Ship & s) {
-	// TODO
-	return 0;
+// isLegalPlacement
+bool Game::isLegalPlacement(int index) {
+	Ship s = boards[selectedPlayer][index];
+	bool legal = true;
+	int front, back;
+	int len = s.Length()/2;
+	bool orient = (s.Orientation() == "horizontal");
+
+	if (orient) {
+		front = s.GetX() + len;
+		back = s.GetX() - len;
+	}
+	else {
+		front = s.GetY() + len;
+		back = s.GetY() - len;
+	}
+
+	// Adjust for even length ships
+	if (!(s.Length() % 2)) {
+		front--;
+	}
+
+	if ((front > 9) || (back < 0)) {
+		std::cout << "Not legal!" << std::endl;
+		return false;
+	}
+
+	for (int i = 0; i < boards[selectedPlayer].size(); i++) {
+		if (i != index) {
+			Ship b = boards[selectedPlayer][i];
+			int b_len = b.Length() / 2;
+			int b_back, b_front;
+			if (b.Orientation() == "horizontal") {
+				b_front = b.GetX() + b_len;
+				b_back = b.GetX() - b_len;
+
+				// Adjust for even length ships
+				if (!(b.Length() % 2)) {
+					b_front--;
+				}
+
+				if (orient) {
+					legal = ((front < b_back) || (back > b_front) || (s.GetY() != b.GetY()));
+				}
+				else {
+					legal = ((s.GetX() > b_front) || (s.GetX() < b_back) || (front < b.GetY()) || (back > b.GetY()));
+				}
+			}
+			else {
+				b_front = b.GetY() + b_len;
+				b_back = b.GetY() - b_len;
+
+				// Adjust for even length ships
+				if (!(b.Length() % 2)) {
+					b_front--;
+				}
+
+				if (orient) {
+					legal = ((b.GetX() > front) || (b.GetX() < back) || (b_front < s.GetY()) || (b_back > s.GetY()));
+				}
+				else {
+					legal = ((b_front < back) || (b_back > front) || (s.GetX() != b.GetX()));
+				}
+			}
+
+			if (!legal) {
+				std::cout << "Not legal!" << std::endl;
+				break;
+			}
+		}
+	}
+	return legal;
 }

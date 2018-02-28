@@ -78,7 +78,7 @@ class Ship{
 		int GetCost();
 
 		// Move
-		void Move(int x_comp, int y_comp);
+		void Move(int x, int y);
 
 		// Rotate
 		void Rotate();

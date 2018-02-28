@@ -73,9 +73,9 @@ int Ship::GetCost() {
 }
 
 // Move
-void Ship::Move(int x_comp, int y_comp) {
-	x_loc += x_comp;
-	y_loc += y_comp;
+void Ship::Move(int x, int y) {
+	x_loc = x;
+	y_loc = y;
 }
 
 // Rotate
