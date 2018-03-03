@@ -4,10 +4,11 @@ Item {
     id: root
     property int shipWidth
     property int shipHeight
-    property var nameD: []
+    property var shipID: []
     property int prevX: 0
     property int prevY: 0
     property QtObject model: backend
+    property int length: 1
     width: shipWidth; height: shipHeight
     x: 0
     y: 0
@@ -41,10 +42,14 @@ Item {
             else{
                 y = tile.y = tile.y - tile.y % 30 + 30
             }
-            if(backend.moveShip(x,y)==false){
-                x = prevX;
-                y = prevY;
+
+            if(backend.moveShip(shipID,x/30+(length-length%2)/2,y/30+(length-length%2)/2)===false){
+                x = tile.x = prevX;
+                y = tile.y = prevY;
             }
+            backend.displayConsole();
+            prevX = x
+            prevY = y
         }
         onClicked: {
             if(Qt.RightButton){
@@ -60,6 +65,8 @@ Item {
         Rectangle {
             id: tile
             width: parent.width; height: parent.height;
+            x: parent.x
+            y: parent.y
             color: "blue"
 
             Drag.keys: [ "shipTile" ]

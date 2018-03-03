@@ -548,13 +548,13 @@ Window {
                     }
                 }
                 Repeater {
+                    id: placementPlayer1
                     model: idL
                     Ship {                      
                         shipWidth: 30*holding[index]
                         shipHeight: 30
-                        nameD: throwaway[index]
-                        newX: 0
-                        newY: 30*[index]
+                        shipID: throwaway[index]
+                        length: holding[index]
                     }
                 }
             }
@@ -635,9 +635,8 @@ Window {
                     Ship {
                         shipWidth: 30*holding2[index]
                         shipHeight: 30
-                        nameD: throwaway2[index]
-                        newX: 0
-                        newY: 30*[index]
+                        shipID: throwaway[index]
+                        length: holding[index]
                     }
                 }
             }
@@ -713,13 +712,13 @@ Window {
                     }
                 }
                 Repeater {
+                    id: shipsPlayer
                     model: idL
                     Ship {
                         shipWidth: 30*holding[index]
                         shipHeight: 30
-                        nameD: throwaway[index]
-                        newX: 30*xpos[index]
-                        newY: 30*ypos[index]
+                        shipID: throwaway[index]
+                        length: holding[index]
                     }
                 }
             }
@@ -759,9 +758,10 @@ Window {
                     Ship {
                         shipWidth: 30*holding2[index]
                         shipHeight: 30
-                        nameD:  throwaway2[index]
-                        newX: 30*xpos2[index]
-                        newY: 30*ypos2[index]
+                        shipID: throwaway[index]
+                        length: holding[index]
+                        x: 30*xpos2[index]
+                        y: 30*ypos2[index]
 
                     }
                 }
