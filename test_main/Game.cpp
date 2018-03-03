@@ -119,19 +119,34 @@ std::vector<Ship> & Game::getBoard() {
 }
 
 // shoot
-std::vector<shot> & Game::shoot(Ship_UID s, std::size_t x, std::size_t y) {
-	shot newShot(x, y, boards[!selectedPlayer], getShip(s).getAttack());
-	shotsFired.addShot(newShot);
-	if (boards[!selectedPlayer].size() == 0) {
-		gameOver = true;
-		onGameOver();
+void Game::shoot(Ship_UID s, std::size_t x, std::size_t y) {
+	if (getShip(s).canAttack()) {
+		if (x < 10 && y < 10) {
+			getShip(s).takeAction();
+			shot newShot(x, y, boards[!selectedPlayer], getShip(s).getAttack());
+			shotsFired.addShot(newShot);
+			if (boards[!selectedPlayer].size() == 0) {
+				gameOver = true;
+				onGameOver();
+			}
+		}
+		else {
+			std::cout << "Invalid coordinates" << std::endl;
+		}
 	}
-	return shotsFired.current();
+	else {
+		std::cout << "This ship has already acted" << std::endl;
+	}
 }
 
 // printBoard
 void Game::printBoard() {
 	draw_board(boards[selectedPlayer]);
+}
+
+// printCommandView
+void Game::printCommandView() {
+	draw_command(boards[selectedPlayer], boards[!selectedPlayer], shotsFired.current());
 }
 
 // currentPlayer
@@ -154,6 +169,11 @@ std::string Game::pointTotals() {
 	return "Player one: " + std::to_string(pointTotal[selectedPlayer]) + " Player two: " + std::to_string(pointTotal[!selectedPlayer]);
 }
 
+// pointsLeft
+std::string Game::pointsLeft() {
+	return std::to_string(pointTotal[selectedPlayer]);
+}
+
 // registerGameOver
 void Game::registerGameOver(std::function<void()> endFn) {
 	onGameOver = endFn;
@@ -166,8 +186,31 @@ void Game::registerOnSwitch(std::function<void()> switchFn) {
 
 // nextTurn
 void Game::nextTurn() {
-	shotsFired.newTurn();
-	turn++;
+	if (selectedPlayer) {
+		shotsFired.newTurn();
+		turn++;
+	}
+	switchPlayer();
+	for (int i = 0; i < boards[selectedPlayer].size(); i++) {
+		boards[selectedPlayer][i].reset();
+	}
+}
+
+// travel
+bool Game::travel(Ship_UID s, std::size_t x, std::size_t y) {
+	if (getShip(s).canTravel(x, y)) {
+		if (moveShip(s, x, y)) {
+			getShip(s).takeAction();
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	else {
+		std::cout << "Cannot move that far or has already acted" << std::endl;
+		return false;
+	}
 }
 
 // moveShip
@@ -268,4 +311,9 @@ bool Game::isLegalPlacement(int index) {
 		}
 	}
 	return legal;
+}
+
+// startGame
+void Game::startGame() {
+	selectedPlayer = false;
 }

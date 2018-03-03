@@ -62,6 +62,8 @@ struct IDBase {
 	std::unordered_map<int, std::tuple<bool, Ship_ID>> data;
 	int unique_index;
 
+	IDBase() { unique_index = 1; };
+
 	auto operator[](int UID) {
 		return data[UID];
 	}
@@ -105,8 +107,10 @@ public:
 	void destroyShip(Ship_UID ID);
 	void switchPlayer();
 	void nextTurn();
+	void startGame();
 
-	std::vector<shot> & shoot(Ship_UID s, std::size_t x, std::size_t y);
+	void shoot(Ship_UID s, std::size_t x, std::size_t y);
+	bool travel(Ship_UID s, std::size_t x, std::size_t y);
 	bool moveShip(Ship_UID s, std::size_t x, std::size_t y);
 	bool rotateShip(Ship_UID s);
 
@@ -116,10 +120,14 @@ public:
 	std::vector<Ship> & getBoard();
 	int currentPlayer();
 
+	// ASCII display functions
 	void printBoard();
 	void printEnemy();
-
+	void printCommandView();
 	std::string pointTotals();
+	std::string pointsLeft();
+
+	// External events
 	void registerGameOver(std::function<void()> endFn);
 	void registerOnSwitch(std::function<void()> switchFn);
 };

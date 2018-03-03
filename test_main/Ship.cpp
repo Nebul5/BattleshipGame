@@ -97,3 +97,30 @@ bool Ship::isVisible() {
 attack & Ship::getAttack() {
 	return Attack;
 }
+
+// takeAction
+void Ship::takeAction() {
+	acted = !acted;
+}
+
+// reset
+void Ship::reset() {
+	acted = false;
+}
+
+// canAttack
+bool Ship::canAttack() {
+	return !acted;
+}
+
+// canTravel
+bool Ship::canTravel(int x, int y) {
+	if (!acted) {
+		int x_dist = x - x_loc;
+		int y_dist = y - y_loc;
+		return (speed*speed >= (x_dist*x_dist + y_dist*y_dist));
+	}
+	else {
+		return false;
+	}
+}

@@ -33,6 +33,7 @@ class Ship{
 		attack Attack;
 		std::function<void()> destroyed;
 		bool horiz_vert; // true means horizontal
+		bool acted;
 
     public:
 		Ship() = delete;
@@ -42,6 +43,7 @@ class Ship{
 			name(Name), hp(Hitpoints), armor(Armor), length(Length), speed(Speed), cost(Cost), stealth(Stealthy), destroyed(onDestroy), Attack(Attack) {
 			tracked = 0;
 			horiz_vert = true;
+			acted = false;
 			x_loc = 0 + length / 2;
 			y_loc = 0;
 		}; // name, hitpoints, armor, length, speed, cost, stealth, onDestroy, attack
@@ -49,7 +51,7 @@ class Ship{
 		Ship(const Ship & s) :
 			name(s.name), hp(s.hp), armor(s.armor), length(s.length), cost(s.cost), speed(s.speed), tracked(s.tracked), 
 			x_loc(s.x_loc), y_loc(s.y_loc), stealth(s.stealth), Attack(s.Attack), destroyed(s.destroyed),
-			horiz_vert(s.horiz_vert) {
+			horiz_vert(s.horiz_vert), acted(s.acted) {
 		};
 
 		// assignment operator
@@ -80,6 +82,12 @@ class Ship{
 		// Move
 		void Move(int x, int y);
 
+		// canAttack
+		bool canAttack();
+
+		// canTravel
+		bool canTravel(int x, int y);
+
 		// Rotate
 		void Rotate();
 
@@ -91,6 +99,12 @@ class Ship{
 
 		// setDestroy
 		void setDestroy(std::function<void()> fn);
+
+		// takeAction
+		void takeAction();
+
+		// reset
+		void reset();
 };
 
 #endif

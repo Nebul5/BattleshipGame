@@ -40,5 +40,6 @@ struct shot {
 // draw_board function
 void draw_board(std::vector<Ship> & ships);
 void draw_enemy(std::vector<Ship> & ships, std::vector<shot> & shots);
+void draw_command(std::vector<Ship> & a_ships, std::vector<Ship> & e_ships, std::vector<shot> & shots);
 
 #endif
