@@ -23,6 +23,10 @@ GUI would suffice so started working on game class implementation.
 	point values of different ships.
 2:50pm to 5:28pm
 
+3/2/2018 - Created Game_Main program which runs a game in the console
+	in lieu of a GUI.
+~2 hours
+
 2/25/2018 - Finished balance table for default ships
 	- Made some minor changes to game class.
 7:28pm to 10:59pm
